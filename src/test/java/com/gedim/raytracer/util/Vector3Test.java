@@ -152,4 +152,14 @@ public class Vector3Test extends TestCase {
 		assertEquals(0.50709255, vecB.getY(), PRECISION);
 		assertEquals(0.84515425, vecB.getZ(), PRECISION);
 	}
+	
+	@Test
+	public void testNormalizeZeroVector() {
+		Vector3 vecA = new Vector3(0.0, 0.0, 0.0);
+		Vector3 vecB = vecA.normalize();
+
+		assertEquals(0.0, vecB.getX(), PRECISION);
+		assertEquals(0.0, vecB.getY(), PRECISION);
+		assertEquals(0.0, vecB.getZ(), PRECISION);
+	}
 }
