@@ -15,5 +15,11 @@ public class AreaLight extends BaseLight implements Light {
 	public double getSize() {
 		return size;
 	}
+	
+	@Override
+	public Vector3 getNormal() {
+		// TODO Auto-generated method stub
+		return super.getNormal();
+	}
 
 }

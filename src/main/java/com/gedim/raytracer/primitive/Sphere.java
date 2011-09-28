@@ -24,7 +24,7 @@ public class Sphere extends BasePrimitive implements Primitive {
 
 	public HitResult intersectRay(final Ray ray, final double distance) {
 		Vector3 v = ray.getOrigin().subtract(this.getPosition());
-		double b = v.dotProduct(ray.getDirection());
+		double b = - v.dotProduct(ray.getDirection());
 		double det = (b * b) - v.dotProduct(v) + (radius * 2);
 
 		double hitDistance = distance;

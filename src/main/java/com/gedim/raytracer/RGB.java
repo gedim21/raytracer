@@ -15,6 +15,10 @@ public class RGB {
 		this.blue = blue;
 	}
 
+	public RGB(RGB color) {
+		this(color.getRed(), color.getGreen(), color.getBlue());
+	}
+
 	public RGB add(RGB value) {
 		return new RGB(this.red + value.red, this.green + value.green,
 				this.blue + value.blue);

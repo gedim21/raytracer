@@ -9,14 +9,13 @@ public class Ray {
 
 	public Ray(Vector3 origin, Vector3 direction) {
 		super();
-		this.origin = origin;
-		this.direction = direction;
+		this.origin = new Vector3(origin);
+		this.direction = new Vector3(direction);
 	}
 
 	public Ray(Vector3 direction) {
 		this.origin = new Vector3();
-		this.direction = new Vector3(direction.getX(), direction.getY(),
-				direction.getZ());
+		this.direction = new Vector3(direction);
 	}
 
 	public Ray normalize() {

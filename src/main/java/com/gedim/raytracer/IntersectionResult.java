@@ -19,10 +19,13 @@ public class IntersectionResult {
 		this.intersectedPrimitive = intersectedPrimitive;
 		this.intersectionDistance = intersectionDistance;
 
-		intersectionPoint = intersectingRay.getOrigin().add(
-				intersectingRay.getDirection().multiply(intersectionDistance));
-		intersectionNormal = intersectedPrimitive
-				.getNormalAt(intersectionPoint);
+		if (intersectedPrimitive != null) {
+			intersectionPoint = intersectingRay.getOrigin().add(
+					intersectingRay.getDirection().multiply(
+							intersectionDistance));
+			intersectionNormal = intersectedPrimitive
+					.getNormalAt(intersectionPoint);
+		}
 	}
 
 	public Primitive getPrimitive() {

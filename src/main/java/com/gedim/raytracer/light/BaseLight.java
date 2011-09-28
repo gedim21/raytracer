@@ -27,4 +27,9 @@ public class BaseLight implements Light {
 	public double getIntensity() {
 		return intensity;
 	}
+
+	public Vector3 getNormal() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
