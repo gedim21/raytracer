@@ -14,6 +14,12 @@ public class Vector3 {
 		this.y = y;
 		this.z = z;
 	}
+	
+	public Vector3(Vector3 vector) {
+		this.x = vector.getX();
+		this.y = vector.getY();
+		this.z = vector.getZ();
+	}
 
 	public Vector3 add(final Vector3 vec) {
 		return new Vector3(this.x + vec.x, this.y + vec.y, this.z + vec.z);
@@ -63,12 +69,24 @@ public class Vector3 {
 	public double getX() {
 		return x;
 	}
+	
+	public void setX(double x) {
+		this.x = x;
+	}
 
 	public double getY() {
 		return y;
 	}
+	
+	public void setY(double y) {
+		this.y = y;
+	}
 
 	public double getZ() {
 		return z;
+	}
+	
+	public void setZ(double z) {
+		this.z = z;
 	}
 }
