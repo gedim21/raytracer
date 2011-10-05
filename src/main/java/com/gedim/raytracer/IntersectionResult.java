@@ -18,6 +18,7 @@ public class IntersectionResult {
 		super();
 		this.intersectedPrimitive = intersectedPrimitive;
 		this.intersectionDistance = intersectionDistance;
+		this.intersectingRay = intersectingRay;
 
 		if (intersectedPrimitive != null) {
 			intersectionPoint = intersectingRay.getOrigin().add(

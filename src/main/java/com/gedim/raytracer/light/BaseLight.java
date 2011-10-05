@@ -3,7 +3,7 @@ package com.gedim.raytracer.light;
 import com.gedim.raytracer.RGB;
 import com.gedim.raytracer.util.Vector3;
 
-public class BaseLight implements Light {
+public abstract class BaseLight implements Light {
 
 	private Vector3 position;
 	private RGB color;
@@ -26,10 +26,5 @@ public class BaseLight implements Light {
 
 	public double getIntensity() {
 		return intensity;
-	}
-
-	public Vector3 getNormal() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

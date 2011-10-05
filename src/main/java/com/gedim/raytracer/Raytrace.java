@@ -7,6 +7,10 @@ public class Raytrace {
 	private Primitive primitive;
 	private RGB intensity;
 
+	public Raytrace() {
+		this.intensity = new RGB();
+	}
+	
 	public Raytrace(Primitive primitive, RGB intensity) {
 		super();
 		this.primitive = primitive;

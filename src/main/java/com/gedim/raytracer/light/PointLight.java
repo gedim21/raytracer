@@ -9,9 +9,7 @@ public class PointLight extends BaseLight implements Light {
 		super(position, color, intensity);
 	}
 
-	@Override
-	public Vector3 getNormal() {
-		// TODO Auto-generated method stub
-		return super.getNormal();
+	public Vector3 getDirection() {
+		return null;
 	}
 }

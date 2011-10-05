@@ -5,7 +5,8 @@ import com.gedim.raytracer.util.Vector3;
 
 public class AreaLight extends BaseLight implements Light {
 
-	private double size;
+	private double	size;
+	private Vector3	direction;
 
 	public AreaLight(Vector3 position, RGB color, double intensity) {
 		super(position, color, intensity);
@@ -15,11 +16,8 @@ public class AreaLight extends BaseLight implements Light {
 	public double getSize() {
 		return size;
 	}
-	
-	@Override
-	public Vector3 getNormal() {
-		// TODO Auto-generated method stub
-		return super.getNormal();
-	}
 
+	public Vector3 getDirection() {
+		return direction;
+	}
 }

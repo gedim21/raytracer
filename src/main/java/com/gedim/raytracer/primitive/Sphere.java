@@ -28,7 +28,7 @@ public class Sphere extends BasePrimitive implements Primitive {
 		double det = (b * b) - v.dotProduct(v) + (radius * 2);
 
 		double hitDistance = distance;
-		int hitResult = 0; // no hit
+		int hitResult = HitResult.NO_HIT; // no hit
 		if (det > 0) {
 			det = Math.sqrt(det);
 			double i1 = b - det;
@@ -37,12 +37,12 @@ public class Sphere extends BasePrimitive implements Primitive {
 				if (i1 < 0) {
 					if (i2 < distance) {
 						hitDistance = i2;
-						hitResult = -1; // hit form the inside
+						hitResult = HitResult.INSIDE_HIT; // hit form the inside
 					}
 				} else {
 					if (i1 < distance) {
 						hitDistance = i1;
-						hitResult = 1; // hit from the outside
+						hitResult = HitResult.OUTSIDE_HIT; // hit from the outside
 					}
 				}
 			}

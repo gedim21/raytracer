@@ -2,7 +2,7 @@ package com.gedim.raytracer.util;
 
 public class Vector3 {
 
-	private double x, y, z;
+	private double	x, y, z;
 
 	public Vector3() {
 		this(0.0, 0.0, 0.0);
@@ -14,7 +14,7 @@ public class Vector3 {
 		this.y = y;
 		this.z = z;
 	}
-	
+
 	public Vector3(Vector3 vector) {
 		this.x = vector.getX();
 		this.y = vector.getY();
@@ -61,6 +61,11 @@ public class Vector3 {
 		}
 	}
 
+	public Vector3 getReflected(Vector3 normal) {
+		Vector3 reflectedVector = this.subtract(normal.multiply(2.0 * this.dotProduct(normal)));
+		return reflectedVector;
+	}
+
 	@Override
 	public String toString() {
 		return "Vector3{" + x + "," + y + "," + z + "}";
@@ -69,7 +74,7 @@ public class Vector3 {
 	public double getX() {
 		return x;
 	}
-	
+
 	public void setX(double x) {
 		this.x = x;
 	}
@@ -77,7 +82,7 @@ public class Vector3 {
 	public double getY() {
 		return y;
 	}
-	
+
 	public void setY(double y) {
 		this.y = y;
 	}
@@ -85,7 +90,7 @@ public class Vector3 {
 	public double getZ() {
 		return z;
 	}
-	
+
 	public void setZ(double z) {
 		this.z = z;
 	}
