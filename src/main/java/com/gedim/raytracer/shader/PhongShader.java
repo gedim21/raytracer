@@ -32,7 +32,7 @@ public class PhongShader implements Shader {
 		} else if (nxl < 0.0) {
 			return new RGB();
 		} else {
-			RGB color = light.getColor().multiply(primitive.getMaterial().getColor()).multiply(nxl)
+			RGB color = light.getColor().multiply(primitive.getMaterial().getColor()).multiply(nxl).multiply(primitive.getMaterial().getDiffuse())
 					.multiply(light.getIntensity());
 			return color;
 		}
@@ -47,7 +47,7 @@ public class PhongShader implements Shader {
 		} else {
 			Vector3 reflected = light.getPosition().getReflected(normal);
 			reflected = reflected.normalize();
-			double dot = reflected.dotProduct(ray.getDirection());
+			double dot = reflected.dotProduct(ray.getDirection().normalize());
 
 			if (dot < 0.0) {
 				return new RGB();
