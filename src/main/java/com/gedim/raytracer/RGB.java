@@ -46,7 +46,7 @@ public class RGB {
 	public double[] asArray(double multiplant) {
 		double[] array = new double[] { red * (double) multiplant, green * (double) multiplant, blue * (double) multiplant };
 		for( int i = 0 ; i < 2 ; ++i) {
-			array[i] = array[i] > 255.0 ? 255.0 : array[i];
+			array[i] = array[i] > multiplant ? multiplant : array[i];
 		}
 		return array;
 	}

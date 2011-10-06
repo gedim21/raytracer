@@ -41,10 +41,7 @@ public class Raytracer {
 		Sampler sampler = new StratifiedSampler();
 		for (int y = 0; y < xRes; y++) {
 			for (int x = 0; x < yRes; x++) {
-				Raytrace raytrace = new Raytrace();
-				Sample sample = sampler.samplePixel(u, v, 1);
-				Ray ray = new Ray(rayOrigin, new Vector3(sample.getX(), sample.getY(), 1.0).subtract(rayOrigin));
-				raytrace = raytrace(scene, ray.normalize(), options.getMaxRayDepth(), raytrace, 1000.0);
+				Raytrace raytrace = samplePixel(u, v, fu, fv, sampler, rayOrigin, scene, options);
 				bufferedImage.getRaster().setPixel(x, y, raytrace.getIntensity().asArray(255.0));
 				u += fu;
 			}
@@ -54,7 +51,17 @@ public class Raytracer {
 
 		RenderPanel renderPanel = new RenderPanel(options, bufferedImage);
 		renderPanel.showRenderPanel();
-		log.info("Finished");
+		log.info("Finished rendering");
+	}
+
+	private Raytrace samplePixel(double u, double v, double fu, double fv, Sampler sampler, Vector3 rayOrigin,
+			Scene scene, RenderOptions options) {
+		
+		Raytrace raytrace = new Raytrace();
+		Sample sample = sampler.samplePixel(u, v, 1);
+		Ray ray = new Ray(rayOrigin, new Vector3(sample.getX(), sample.getY(), 1.0).subtract(rayOrigin));
+		raytrace = raytrace(scene, ray.normalize(), options.getMaxRayDepth(), raytrace, 1000.0);
+		return raytrace;
 	}
 
 	private Raytrace raytrace(final Scene scene, final Ray ray, final int traceDepth, final Raytrace raytrace,
@@ -67,17 +74,30 @@ public class Raytracer {
 
 		if (intersectionResult != null && intersectionResult.getIntersectionPoint() != null) {
 
-			Shader materialShader = intersectionResult.getPrimitive().getMaterial().getShader();
+			Material material = intersectionResult.getPrimitive().getMaterial();
+			Shader materialShader = material.getShader();
 			RGB totalIntensity = new RGB();
 			for (Light light : scene.getLights()) {
 
 				double shadowIntensity = 0.0d;
 				RGB intensity = materialShader.calculateIntensity(intersectionResult.getRay(),
-						intersectionResult.getPrimitive(), intersectionResult.getIntersectionNormal(), light, shadowIntensity);
+						intersectionResult.getPrimitive(), intersectionResult.getIntersectionNormal().normalize(), light,
+						shadowIntensity);
 				totalIntensity = totalIntensity.add(intensity);
 			}
 
-			Raytrace result = new Raytrace(intersectionResult.getPrimitive(), totalIntensity);
+			if (material.getReflection() > 0.0 && traceDepth != 0) {
+				Vector3 reflectedVector = ray.getDirection().normalize()
+						.getReflected(intersectionResult.getIntersectionNormal()).normalize();
+				RGB reflectionIntensity = new RGB();
+				Ray newRay = new Ray(intersectionResult.getIntersectionPoint().add(reflectedVector.multiply(Double.MIN_VALUE)));
+				Raytrace reflectionResult = raytrace(scene, newRay, traceDepth - 1, raytrace, distance);
+				reflectionIntensity = reflectionResult.getIntensity().multiply(material.getReflection())
+						.multiply(material.getColor());
+				totalIntensity = totalIntensity.add(reflectionIntensity);
+			}
+
+			Raytrace result = new Raytrace(totalIntensity);
 			return result;
 		} else {
 			return raytrace;
@@ -90,17 +110,18 @@ public class Raytracer {
 		options.setMaxRayDepth(4);
 		options.setResolution(new Resolution(320, 320));
 
-		Camera camera = new Camera(new Vector3(10.0, 10.0, -50.0));
+		Camera camera = new Camera(new Vector3(0.0, 0.0, -500.0));
 		Scene scene = new Scene();
 		scene.setCamera(camera);
 
-		Material material = new Material();
-		material.setAmbient(0.1);
-		material.setDiffuse(0.9);
-		material.setSpecularity(0.1);
-		material.setGlossiness(0.1);
-		material.setShader(new PhongShader());
-		material.setColor(new RGB(0.1, 0.3, 0.5));
+		Material material1 = new Material();
+		material1.setAmbient(0.1);
+		material1.setDiffuse(0.4);
+		material1.setSpecularity(0.1);
+		material1.setGlossiness(0.1);
+		material1.setShader(new PhongShader());
+		material1.setColor(new RGB(0.1, 0.3, 0.5));
+		material1.setReflection(0.1);
 
 		Material material2 = new Material();
 		material2.setAmbient(0.5);
@@ -110,21 +131,30 @@ public class Raytracer {
 		material2.setShader(new PhongShader());
 		material2.setColor(new RGB(0.1, 0.3, 0.5));
 
-		Plane plane = new Plane(0.1, new Vector3(0.0, 3.0, 0.0), new Vector3(0.0, -1.0, 0.0));
+		Plane plane = new Plane(0.1, new Vector3(0.0, 0.0, 0.0), new Vector3(0.0, -1.0, 0.0));
 		plane.setMaterial(material2);
 
-		Sphere sphere1 = new Sphere(new Vector3(0.0d, 0.0d, 0.0d), 0.35d);
-		sphere1.setMaterial(material);
+		Sphere sphere1 = new Sphere(new Vector3(0.0, -1.5, 0.0), 0.35d);
+		sphere1.setMaterial(material1);
 
-		Sphere sphere2 = new Sphere(new Vector3(3.0d, 3.0d, 0.0d), 0.25d);
-		sphere2.setMaterial(material);
+		Sphere sphere2 = new Sphere(new Vector3(1.5, 0.0, 0.0), 0.35d);
+		sphere2.setMaterial(material1);
 
-		 scene.addPrimitive(sphere1);
-		 scene.addPrimitive(sphere2);
-		scene.addPrimitive(plane);
+		Sphere sphere3 = new Sphere(new Vector3(-1.5, 0.0, 0.0), 0.35d);
+		sphere3.setMaterial(material1);
 
-		PointLight light = new PointLight(new Vector3(-5d, 10d, -10d), new RGB(0.8, 0.8, 0.8), .9);
-		scene.addLight(light);
+		scene.addPrimitive(sphere1);
+		scene.addPrimitive(sphere2);
+		scene.addPrimitive(sphere3);
+		// scene.addPrimitive(plane);
+
+		PointLight light1 = new PointLight(new Vector3(-5d, -10d, -10d), new RGB(0.9, 0.9, 0.9), .9);
+		PointLight light2 = new PointLight(new Vector3(5d, -10d, -10d), new RGB(0.8, 0.9, 0.8), .4);
+		PointLight light3 = new PointLight(new Vector3(5d, 10d, -10d), new RGB(0.8, 0.8, 0.8), .1);
+
+		scene.addLight(light1);
+		scene.addLight(light2);
+		scene.addLight(light3);
 
 		new Raytracer().render(scene, options);
 	}

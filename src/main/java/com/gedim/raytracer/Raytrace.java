@@ -4,25 +4,15 @@ import com.gedim.raytracer.primitive.Primitive;
 
 public class Raytrace {
 
-	private Primitive primitive;
 	private RGB intensity;
 
 	public Raytrace() {
 		this.intensity = new RGB();
 	}
 	
-	public Raytrace(Primitive primitive, RGB intensity) {
+	public Raytrace( RGB intensity) {
 		super();
-		this.primitive = primitive;
 		this.intensity = intensity;
-	}
-
-	public Primitive getPrimitive() {
-		return primitive;
-	}
-
-	public void setPrimitive(Primitive primitive) {
-		this.primitive = primitive;
 	}
 
 	public RGB getIntensity() {

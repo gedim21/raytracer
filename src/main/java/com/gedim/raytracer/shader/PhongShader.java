@@ -53,9 +53,8 @@ public class PhongShader implements Shader {
 				return new RGB();
 			}
 
-			double spec = light.getIntensity() * Math.pow(dot, (primitive.getMaterial().getGlossiness() + 0.0001) * 100.0);
+			double spec = light.getIntensity() * Math.pow(dot, (primitive.getMaterial().getGlossiness() + Double.MIN_VALUE) * 100.0);
 			return new RGB(spec, spec, spec);
 		}
-
 	}
 }
