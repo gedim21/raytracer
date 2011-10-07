@@ -1,6 +1,5 @@
 package com.gedim.raytracer;
 
-import com.gedim.raytracer.primitive.Primitive;
 
 public class Raytrace {
 

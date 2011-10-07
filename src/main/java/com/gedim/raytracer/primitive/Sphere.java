@@ -19,7 +19,7 @@ public class Sphere extends BasePrimitive implements Primitive {
 
 	@Override
 	public Vector3 getNormalAt(Vector3 point) {
-		return point.subtract(getPosition());
+		return point.subtract(getPosition()).normalize();
 	}
 
 	public HitResult intersectRay(final Ray ray, final double distance) {
