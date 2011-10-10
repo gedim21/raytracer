@@ -25,16 +25,16 @@ public class Sphere extends BasePrimitive implements Primitive {
 	public HitResult intersectRay(final Ray ray, final double distance) {
 		Vector3 v = ray.getOrigin().subtract(this.getPosition());
 		double b = - v.dotProduct(ray.getDirection());
-		double det = (b * b) - v.dotProduct(v) + (radius * 2);
+		double det = (b * b) - v.dotProduct(v) + (radius * 2.0);
 
 		double hitDistance = distance;
 		int hitResult = HitResult.NO_HIT; // no hit
-		if (det > 0) {
+		if (det > 0d) {
 			det = Math.sqrt(det);
 			double i1 = b - det;
 			double i2 = b + det;
-			if (i2 > 0) {
-				if (i1 < 0) {
+			if (i2 > 0d) {
+				if (i1 < 0d) {
 					if (i2 < distance) {
 						hitDistance = i2;
 						hitResult = HitResult.INSIDE_HIT; // hit form the inside
