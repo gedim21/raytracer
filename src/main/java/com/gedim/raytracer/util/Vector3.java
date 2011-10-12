@@ -1,5 +1,8 @@
 package com.gedim.raytracer.util;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 public class Vector3 {
 
 	private double	x, y, z;
@@ -68,7 +71,28 @@ public class Vector3 {
 
 	@Override
 	public String toString() {
-		return "Vector3{" + x + "," + y + "," + z + "}";
+		return "Vector3{" + x + ", " + y + ", " + z + "}";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (obj == this) {
+			return true;
+		}
+		if (obj.getClass() != getClass()) {
+			return false;
+		}
+
+		Vector3 rhs = (Vector3) obj;
+		return new EqualsBuilder().append(x, rhs.x).append(y, rhs.y).append(z, rhs.z).isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37).appendSuper(super.hashCode()).append(x).append(y).append(z).toHashCode();
 	}
 
 	public double getX() {

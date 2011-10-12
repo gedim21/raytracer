@@ -1,4 +1,8 @@
-package com.gedim.raytracer;
+package com.gedim.raytracer.util;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 
 public class RGB {
 
@@ -45,7 +49,7 @@ public class RGB {
 
 	public double[] asArray(double multiplant) {
 		double[] array = new double[] { red * (double) multiplant, green * (double) multiplant, blue * (double) multiplant };
-		for( int i = 0 ; i < 2 ; ++i) {
+		for (int i = 0; i < 2; ++i) {
 			array[i] = array[i] > multiplant ? multiplant : array[i];
 		}
 		return array;
@@ -54,6 +58,27 @@ public class RGB {
 	@Override
 	public String toString() {
 		return "RGB{red: " + red + ", green: " + green + ", blue: " + blue + "}";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (obj == this) {
+			return true;
+		}
+		if (obj.getClass() != getClass()) {
+			return false;
+		}
+
+		RGB rhs = (RGB) obj;
+		return new EqualsBuilder().append(red, rhs.red).append(green, rhs.green).append(blue, rhs.blue).isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37).append(red).append(green).append(blue).toHashCode();
 	}
 
 	public double getRed() {

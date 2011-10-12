@@ -13,6 +13,7 @@ import com.gedim.raytracer.sampler.Sampler;
 import com.gedim.raytracer.sampler.StratifiedSampler;
 import com.gedim.raytracer.shader.Shader;
 import com.gedim.raytracer.ui.RenderPanel;
+import com.gedim.raytracer.util.RGB;
 import com.gedim.raytracer.util.Vector3;
 
 public class Raytracer {

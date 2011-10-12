@@ -13,8 +13,7 @@ public class SphereTest extends BaseTest {
 	public void testIntersetRayOutsideHit() {
 		// given
 		Sphere sphere = new Sphere(new Vector3(0.0, 0.0, 0.0), 1.0);
-		Ray ray = new Ray(new Vector3(0.0, 0.0, -2.0), new Vector3(0.0, 0.0,
-				1.0));
+		Ray ray = new Ray(new Vector3(0.0, 0.0, -2.0), new Vector3(0.0, 0.0, 1.0));
 		double distance = 10.0;
 
 		// when
@@ -28,8 +27,7 @@ public class SphereTest extends BaseTest {
 	public void testIntersetRayInsideHit() {
 		// given
 		Sphere sphere = new Sphere(new Vector3(0.0, 0.0, 0.0), 2.0);
-		Ray ray = new Ray(new Vector3(0.0, 0.0, -1.0), new Vector3(0.0, 0.0,
-				1.0)).normalize();
+		Ray ray = new Ray(new Vector3(0.0, 0.0, -1.0), new Vector3(0.0, 0.0, 1.0)).normalize();
 		double distance = 100.0;
 
 		// when
@@ -39,13 +37,12 @@ public class SphereTest extends BaseTest {
 		assertEquals(HitResult.INSIDE_HIT, hitResult.getHit());
 		assertEquals(3.0, hitResult.getDistance(), PRECISION);
 	}
-	
+
 	@Test
 	public void testIntersetRayNoHit() {
 		// given
 		Sphere sphere = new Sphere(new Vector3(0.0, 0.0, 0.0), 1.0);
-		Ray ray = new Ray(new Vector3(0.0, 0.0, -2.0), new Vector3(1.0, 0.0,
-				1.0));
+		Ray ray = new Ray(new Vector3(0.0, 0.0, -2.0), new Vector3(1.0, 0.0, 1.0));
 		double distance = 10.0;
 
 		// when
@@ -53,5 +50,29 @@ public class SphereTest extends BaseTest {
 
 		// then
 		assertEquals(HitResult.NO_HIT, hitResult.getHit());
+	}
+
+	@Test
+	public void testGetNormalAt() {
+		// given
+		Sphere sphere = new Sphere(new Vector3(0.0, 0.0, 0.0), 1.0);
+
+		// when
+		Vector3 normal = sphere.getNormalAt(new Vector3(0.0, 0.0, 1.0));
+
+		// then
+		assertEquals(new Vector3(0.0, 0.0, 1.0), normal);
+	}
+	
+	@Test
+	public void testGetNormalAtIsNormalized() {
+		// given
+		Sphere sphere = new Sphere(new Vector3(0.0, 0.0, 0.0), 1.0);
+
+		// when
+		Vector3 normal = sphere.getNormalAt(new Vector3(0.0, 0.0, 1.0));
+
+		// then
+		assertEquals(normal.normalize(), normal);
 	}
 }

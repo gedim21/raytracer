@@ -1,7 +1,7 @@
 package com.gedim.raytracer.material;
 
-import com.gedim.raytracer.RGB;
 import com.gedim.raytracer.shader.Shader;
+import com.gedim.raytracer.util.RGB;
 
 public class Material {
 

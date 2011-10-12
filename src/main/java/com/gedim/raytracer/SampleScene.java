@@ -5,6 +5,7 @@ import com.gedim.raytracer.material.Material;
 import com.gedim.raytracer.primitive.Plane;
 import com.gedim.raytracer.primitive.Sphere;
 import com.gedim.raytracer.shader.PhongShader;
+import com.gedim.raytracer.util.RGB;
 import com.gedim.raytracer.util.Vector3;
 
 public class SampleScene extends Scene {

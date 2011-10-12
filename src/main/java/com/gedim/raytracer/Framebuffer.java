@@ -1,5 +1,7 @@
 package com.gedim.raytracer;
 
+import com.gedim.raytracer.util.RGB;
+
 public class Framebuffer {
 
 	private Integer width, height;
