@@ -3,6 +3,7 @@ package com.gedim.raytracer.util;
 import org.junit.Test;
 
 import com.gedim.raytracer.BaseTest;
+import com.gedim.raytracer.math.Vector3;
 
 public class Vector3Test extends BaseTest {
 

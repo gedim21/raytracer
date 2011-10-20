@@ -1,8 +1,8 @@
 package com.gedim.raytracer;
 
+import com.gedim.raytracer.math.Vector3;
 import com.gedim.raytracer.primitive.BasePrimitive;
 import com.gedim.raytracer.primitive.Primitive;
-import com.gedim.raytracer.util.Vector3;
 
 public class IntersectionResult {
 

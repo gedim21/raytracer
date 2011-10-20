@@ -1,6 +1,6 @@
 package com.gedim.raytracer;
 
-import com.gedim.raytracer.util.Vector3;
+import com.gedim.raytracer.math.Vector3;
 
 public class Camera {
 

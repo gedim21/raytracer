@@ -5,7 +5,7 @@ import org.junit.Test;
 import com.gedim.raytracer.BaseTest;
 import com.gedim.raytracer.HitResult;
 import com.gedim.raytracer.Ray;
-import com.gedim.raytracer.util.Vector3;
+import com.gedim.raytracer.math.Vector3;
 
 public class SphereTest extends BaseTest {
 

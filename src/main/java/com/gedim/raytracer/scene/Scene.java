@@ -1,8 +1,12 @@
-package com.gedim.raytracer;
+package com.gedim.raytracer.scene;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gedim.raytracer.Camera;
+import com.gedim.raytracer.HitResult;
+import com.gedim.raytracer.IntersectionResult;
+import com.gedim.raytracer.Ray;
 import com.gedim.raytracer.light.Light;
 import com.gedim.raytracer.primitive.Primitive;
 

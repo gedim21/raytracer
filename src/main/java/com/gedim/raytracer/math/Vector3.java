@@ -1,4 +1,4 @@
-package com.gedim.raytracer.util;
+package com.gedim.raytracer.math;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

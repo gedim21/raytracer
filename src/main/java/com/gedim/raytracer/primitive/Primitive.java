@@ -3,7 +3,7 @@ package com.gedim.raytracer.primitive;
 import com.gedim.raytracer.HitResult;
 import com.gedim.raytracer.Ray;
 import com.gedim.raytracer.material.Material;
-import com.gedim.raytracer.util.Vector3;
+import com.gedim.raytracer.math.Vector3;
 
 public interface Primitive {
 

@@ -1,7 +1,7 @@
 package com.gedim.raytracer.light;
 
+import com.gedim.raytracer.math.Vector3;
 import com.gedim.raytracer.util.RGB;
-import com.gedim.raytracer.util.Vector3;
 
 public interface Light {
 
