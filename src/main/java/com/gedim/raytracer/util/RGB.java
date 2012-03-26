@@ -46,12 +46,18 @@ public class RGB {
 	public double[] asArray() {
 		return new double[] { red, green, blue };
 	}
+	
+	public RGB clamp(double max) {
+	  RGB result = new RGB(this);
+	  result.red = result.red > max ? max : result.red;
+	  result.green = result.green > max ? max : result.green;
+	  result.blue = result.blue > max ? max : result.blue;
+	  return result;
+	}
 
 	public double[] asArray(double multiplant) {
-		double[] array = new double[] { red * (double) multiplant, green * (double) multiplant, blue * (double) multiplant };
-		for (int i = 0; i < 2; ++i) {
-			array[i] = array[i] > multiplant ? multiplant : array[i];
-		}
+	    final RGB res = this.multiply(multiplant).clamp(multiplant);
+		double[] array = new double[] { res.red , res.green , res.blue  };
 		return array;
 	}
 

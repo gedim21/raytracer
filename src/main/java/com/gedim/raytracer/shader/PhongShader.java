@@ -16,7 +16,7 @@ public class PhongShader implements Shader {
 		RGB ambientIntensity = calculateAmbientIntensity(primitive);
 		RGB diffuseIntensity = calculateDiffuseIntensity(primitive, normal, light, shadowIntensity);
 		RGB specularIntensity = calculateSpecularIntensity(ray, primitive, normal, light, shadowIntensity);
-		return ambientIntensity.add(diffuseIntensity);//.add(specularIntensity);
+		return ambientIntensity.add(diffuseIntensity).add(specularIntensity);
 	}
 
 	private RGB calculateAmbientIntensity(Primitive primitive) {
@@ -24,7 +24,7 @@ public class PhongShader implements Shader {
 	}
 
 	private RGB calculateDiffuseIntensity(Primitive primitive, Vector3 normal, Light light, double shadowIntensity) {
-		double nxl = normal.normalize().dotProduct(light.getPosition().normalize());
+		double nxl = normal.dotProduct(light.getPosition().normalize());
 		if (primitive.getMaterial().getDiffuse() == 0.0) {
 			return new RGB();
 		} else if (light.getIntensity() == 0.0) {
@@ -53,7 +53,8 @@ public class PhongShader implements Shader {
 			}
 
 			double spec = light.getIntensity()
-					* Math.pow(dot, (primitive.getMaterial().getGlossiness() + Double.MIN_VALUE) * 100.0);
+					* Math.pow(dot, (primitive.getMaterial().getGlossiness() + Double.MIN_VALUE) * 100.0)
+					* primitive.getMaterial().getSpecularity();
 			return new RGB(spec, spec, spec);
 		}
 	}

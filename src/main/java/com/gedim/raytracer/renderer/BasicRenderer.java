@@ -39,8 +39,8 @@ public class BasicRenderer implements Renderer {
 		double fv = 10.0 / (double) yRes;
 
 		Sampler sampler = new StratifiedSampler();
-		for (int y = 0; y < xRes; y++) {
-			for (int x = 0; x < yRes; x++) {
+		for (int y = 0; y < yRes; y++) {
+			for (int x = 0; x < xRes; x++) {
 				Raytrace raytrace = samplePixel(u, v, fu, fv, sampler, rayOrigin, scene, options);
 				bufferedImage.getRaster().setPixel(x, y, raytrace.getIntensity().asArray(255.0));
 				u += fu;
@@ -59,7 +59,7 @@ public class BasicRenderer implements Renderer {
 
 		Raytrace raytrace = new Raytrace();
 		Sample sample = sampler.samplePixel(u, v, 1);
-		Ray ray = new Ray(rayOrigin, new Vector3(sample.getX(), sample.getY(), 1.0).subtract(rayOrigin));
+		Ray ray = new Ray(rayOrigin, new Vector3(sample.getX(), sample.getY(), 5.0).subtract(rayOrigin));
 		raytrace = raytrace(scene, ray.normalize(), options.getMaxRayDepth(), raytrace, 1000.0);
 		return raytrace;
 	}
@@ -82,7 +82,7 @@ public class BasicRenderer implements Renderer {
 			for (Light light : scene.getLights()) {
 				double shadowIntensity = 0.0d;
 				RGB intensity = materialShader.calculateIntensity(intersectionResult.getRay(),
-						intersectionResult.getPrimitive(), intersectionResult.getIntersectionNormal().normalize(), light,
+						intersectionResult.getPrimitive(), intersectionResult.getIntersectionNormal(), light,
 						shadowIntensity);
 				totalIntensity = totalIntensity.add(intensity);
 			}
@@ -91,7 +91,7 @@ public class BasicRenderer implements Renderer {
 			if (material.getReflection() > 0.0 && traceDepth != 0) {
 				Vector3 reflectedVector = ray.getDirection().getReflected(intersectionResult.getIntersectionNormal());
 				RGB reflectionIntensity = new RGB();
-				Ray newRay = new Ray(intersectionResult.getIntersectionPoint().add(reflectedVector.multiply(0.000001)),
+				Ray newRay = new Ray(intersectionResult.getIntersectionPoint().add(reflectedVector.multiply(0.0001)),
 						reflectedVector);
 				Raytrace reflectionResult = raytrace(scene, newRay.normalize(), traceDepth - 1, raytrace, distance);
 				reflectionIntensity = reflectionResult.getIntensity().multiply(material.getReflection())

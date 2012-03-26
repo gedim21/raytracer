@@ -13,7 +13,7 @@ public class Raytracer {
 		RenderOptions options = new RenderOptions();
 		options.setSamplesPerPixel(8);
 		options.setMaxRayDepth(4);
-		options.setResolution(new Resolution(320, 320));
+		options.setResolution(new Resolution(400, 400));
 
 		SceneParser parser = new SceneParser();
 		Scene scene = parser.parse(null);

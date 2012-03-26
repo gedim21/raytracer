@@ -10,7 +10,7 @@ public class Camera {
 	}
 
 	public Camera(Vector3 position) {
-		this.position = new Vector3(position);
+		this.position = position;
 	}
 
 	public Vector3 getPosition() {

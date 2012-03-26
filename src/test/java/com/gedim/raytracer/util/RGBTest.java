@@ -3,7 +3,6 @@ package com.gedim.raytracer.util;
 import org.junit.Test;
 
 import com.gedim.raytracer.BaseTest;
-import com.gedim.raytracer.util.RGB;
 
 public class RGBTest extends BaseTest {
 
@@ -102,4 +101,10 @@ public class RGBTest extends BaseTest {
 		assertEquals(76.5, result[2], PRECISION);
 	}
 
+	public void testMultipleOperations() {
+	  RGB color = new RGB(0.5, 0.5, 0.5);
+	  RGB result = color.add(new RGB(0.1, 0.1, 0.1)).multiply(0.1).divide(0.2).subtract(new RGB(0.1, 0.1, 0.1));
+	  assertEquals(result.getRed(), result.getGreen());
+	  assertEquals(result.getGreen(), result.getBlue());
+	}
 }
